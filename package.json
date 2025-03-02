@@ -1,13 +1,35 @@
 {
   "name": "kotlintestrunnerlsp",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./out/client/extension.js",
   "scripts": {
     "compile": "tsc -b",
     "start": "node ./out/server.js --stdio",
     "watch": "tsc -b -w",
     "test": "jest",
     "test:watch": "jest --watch"
+  },
+  "activationEvents": [
+    "onLanguage:kotlin"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "kotlin.test.run",
+        "title": "Run Kotlin Test"
+      },
+      {
+        "command": "kotlinTestRunner.test",
+        "title": "Test Kotlin Runner Extension"
+      }
+    ],
+    "languages": [{
+      "id": "kotlin",
+      "extensions": [".kt", ".kts"]
+    }]
+  },
+  "engines": {
+    "vscode": "^1.75.0"
   },
   "keywords": [],
   "author": "",
@@ -20,8 +42,10 @@
   "devDependencies": {
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.8",
+    "@types/vscode": "^1.97.0",
     "jest": "^29.7.0",
     "ts-jest": "^29.2.6",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vscode-languageclient": "^9.0.1"
   }
 }

@@ -11,6 +11,8 @@ import {
     // Extend the mock connection type to include our handler
     type MockConnection = {
       onInitialize: jest.Mock;
+      onInitialized: jest.Mock;
+      onCodeLens: jest.Mock;
       listen: jest.Mock;
       onDidOpenTextDocument: jest.Mock;
       onDidChangeTextDocument: jest.Mock;
@@ -24,6 +26,8 @@ import {
     // Create the mock connection with the extended type
     const mockConnection: MockConnection = {
       onInitialize: jest.fn(),
+      onInitialized: jest.fn(),
+      onCodeLens: jest.fn(),
       listen: jest.fn(),
       onDidOpenTextDocument: jest.fn(),
       onDidChangeTextDocument: jest.fn(),
@@ -69,6 +73,9 @@ import {
           textDocumentSync: TextDocumentSyncKind.Full,
           executeCommandProvider: {
             commands: ['kotlin.test.run']
+          },
+          codeLensProvider: {
+              resolveProvider: true
           }
         }
       });
