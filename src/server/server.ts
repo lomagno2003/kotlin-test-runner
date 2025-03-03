@@ -11,6 +11,7 @@ import {
 
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { detectKotlinTests } from './testDetector';
+import { executeKotlinTest } from './testExecutor';
 
 // Create a connection for the server
 const connection = createConnection(ProposedFeatures.all);
@@ -18,9 +19,13 @@ const connection = createConnection(ProposedFeatures.all);
 // Create a text document manager
 const documents = new TextDocuments(TextDocument);
 
+let workspaceRoot: string | undefined = undefined;
+
 connection.onInitialize((params: InitializeParams): InitializeResult => {
     console.log('Kotlin TR LSP Server initializing...');
     
+    workspaceRoot = params.workspaceFolders?.[0]?.uri;
+
     return {
         capabilities: {
             textDocumentSync: TextDocumentSyncKind.Full,
@@ -57,6 +62,34 @@ connection.onCodeLens((params: CodeLensParams): CodeLens[] => {
             arguments: [test.className, test.name]
         }
     }));
+});
+
+// Add this after your other connection handlers
+connection.onExecuteCommand(async (params) => {
+    if (params.command === 'kotlin.test.run') {
+        const [className, testName] = params.arguments || [];
+        console.log(`Running test: ${className}.${testName}`);
+        
+        try {
+            // Execute the test
+            const result = await executeKotlinTest(className, testName);
+            
+            // Show the test results
+            if (result.success) {
+                connection.window.showInformationMessage(
+                    `✅ Test passed: ${className}#${testName}`
+                );
+            } else {
+                connection.window.showErrorMessage(
+                    `❌ Test failed: ${className}#${testName}\n${result.errorMessage}`
+                );
+            }
+        } catch (e) {
+            connection.window.showErrorMessage(
+                `Error running test: ${(e as Error).message}`
+            );
+        }
+    }
 });
 
 // Make the text document manager listen on the connection

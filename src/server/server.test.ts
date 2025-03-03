@@ -13,6 +13,7 @@ import {
       onInitialize: jest.Mock;
       onInitialized: jest.Mock;
       onCodeLens: jest.Mock;
+      onExecuteCommand: jest.Mock;
       listen: jest.Mock;
       onDidOpenTextDocument: jest.Mock;
       onDidChangeTextDocument: jest.Mock;
@@ -28,6 +29,7 @@ import {
       onInitialize: jest.fn(),
       onInitialized: jest.fn(),
       onCodeLens: jest.fn(),
+      onExecuteCommand: jest.fn(),
       listen: jest.fn(),
       onDidOpenTextDocument: jest.fn(),
       onDidChangeTextDocument: jest.fn(),

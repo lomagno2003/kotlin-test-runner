@@ -14,7 +14,7 @@ export function detectKotlinTests(content: string): KotlinTest[] {
     const classMatch = content.match(/class\s+(\w+)/);
     const className = classMatch ? classMatch[1] : '';
 
-    const testRegex = /@(?:Test|org\.junit\.jupiter\.api\.Test|kotlin\.test\.Test)\s+fun\s+(\w+)/g;
+    const testRegex = /@(?:Test|org\.junit\.jupiter\.api\.Test|kotlin\.test\.Test)\s+fun\s+(\w+|\`.*\`)/g;
     let match;
 
     while ((match = testRegex.exec(content)) !== null) {
