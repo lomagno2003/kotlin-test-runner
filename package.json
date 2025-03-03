@@ -1,6 +1,6 @@
 {
-  "name": "kotlintestrunnerlsp",
-  "version": "1.0.0",
+  "name": "kotlin-test-runner",
+  "version": "0.0.1",
   "main": "./out/client/extension.js",
   "scripts": {
     "compile": "tsc -b",
@@ -16,11 +16,11 @@
     "commands": [
       {
         "command": "kotlin.test.run",
-        "title": "Run Kotlin Test"
+        "title": "Kotlin Test Runner"
       },
       {
         "command": "kotlinTestRunner.test",
-        "title": "Test Kotlin Runner Extension"
+        "title": "Kotlin Test Runner Extension"
       }
     ],
     "languages": [{
@@ -29,12 +29,16 @@
     }]
   },
   "engines": {
-    "vscode": "^1.75.0"
+    "vscode": "^1.97.0"
   },
   "keywords": [],
-  "author": "",
+  "author": "lomagno2003",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lomagno2003/kotlin-test-runner"
+  },
   "license": "ISC",
-  "description": "",
+  "description": "Simple VSCode extension that allows Kotlin Tests to be executed",
   "dependencies": {
     "vscode-languageserver": "^9.0.1",
     "vscode-languageserver-textdocument": "^1.0.12"
